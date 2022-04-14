@@ -1,4 +1,4 @@
-Feature: Check adress
+Feature: Validate address
 
     I want to validate if an address is real
 

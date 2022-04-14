@@ -1,8 +1,8 @@
 import { CheckAddressPostController } from "../controllers/CheckAddressPostController";
 import container from "../dependency-injection";
-import { Express } from "express";
+import { Request, Response, Router } from "express";
 
-export const register = (app: Express) => {
+export const register = (router: Router) => {
   const controller: CheckAddressPostController = container.get('Apps.challenge.controllers.CheckAddressPostController');
-  app.post('/check-address', controller.run.bind(controller));
+  router.post('/validate-address', (req: Request, res: Response) => controller.run(req, res));
 };
