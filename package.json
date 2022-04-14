@@ -4,7 +4,11 @@
   "description": "",
   "scripts": {
     "dev:challenge": "NODE_ENV=dev ts-node-dev --ignore-watch node_modules ./src/apps/challenge/start.ts",
-    "test:challenge:features": "NODE_ENV=test cucumber-js -p challenge"
+    "test:challenge:features": "NODE_ENV=test cucumber-js -p challenge",
+    "test:unit": "NODE_ENV=test jest",
+    "test:features": "npm run test:challenge:features",
+    "test": "npm run test:unit && npm run test:features",
+    "lint": "tslint src/**/*.ts{,x}"
   },
   "author": "Javier Nogales",
   "license": "",
