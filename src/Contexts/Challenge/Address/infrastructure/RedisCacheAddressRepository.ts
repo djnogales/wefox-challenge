@@ -21,6 +21,8 @@ export class RedisCacheAddressRepository implements AddressRepository {
       await (await this.client).set(`address:${JSON.stringify({ street, streetNumber, town, postalCode, country })}`,
         address !== null ? JSON.stringify((address as Address).toPrimitives()) : JSON.stringify({})
       );
+
+      await (await this.client).expire(`address:${JSON.stringify({ street, streetNumber, town, postalCode, country })}`, 43200); // 12 hours cache
       return address;
     }
   }
