@@ -6,7 +6,7 @@ Feature: Validate address
     Given I send a POST request to "/validate-address" with body:
     """
     {
-        "street": "Calle de Preciados",
+        "street": "Calle Preciados",
         "streetNumber": "40",
         "town": "Madrid",
         "postalCode": "28013",
