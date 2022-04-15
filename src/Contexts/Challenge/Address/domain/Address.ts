@@ -18,4 +18,14 @@ export class Address {
     this.postalCode = postalCode;
     this.country = country;
   }
+
+  toPrimitives() {
+    return {
+      street: this.street,
+      streetNumber: this.streetNumber,
+      town: this.town,
+      postalCode: this.postalCode,
+      country: this.country
+    }
+  }
 }
