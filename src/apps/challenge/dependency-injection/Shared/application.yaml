@@ -1,0 +1,15 @@
+services:
+  Shared.RedisConfig:
+    factory:
+      class: ../../../../Contexts/Challenge/Shared/infrastructure/RedisConfigFactory
+      method: 'createConfig'
+
+  Shared.Logger:
+    class: ../../../../Contexts/Shared/infrastructure/WinstonLogger
+    arguments: []
+
+  Shared.ConnectionManager:
+    factory:
+      class: ../../../../Contexts/Shared/infrastructure/RedisClientFactory
+      method: 'createClient'
+    arguments: ['challenge', '@Shared.RedisConfig']

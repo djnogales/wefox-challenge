@@ -1,0 +1,8 @@
+imports:
+  - { resource: ./Shared/application.yaml }
+  - { resource: ./Address/application.yaml }
+
+services:
+  Apps.challenge.controllers.CheckAddressPostController:
+    class: ../controllers/CheckAddressPostController
+    arguments: ["@Challenge.Address.AddressValidator"]
