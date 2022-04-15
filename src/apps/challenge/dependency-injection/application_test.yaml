@@ -1,2 +1,7 @@
 imports:
   - { resource: ./application.yaml }
+
+services:
+  Challenge.EnvironmentArranger:
+    class: ../../../../tests/Contexts/Shared/infrastructure/redis/RedisEnvironmentArranger
+    arguments: ['@Shared.ConnectionManager']
