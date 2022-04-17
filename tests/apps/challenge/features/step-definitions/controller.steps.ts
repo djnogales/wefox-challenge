@@ -16,9 +16,12 @@ Given('an user with email {string} and password {string}', async (email: string,
   });
 });
 
-
 Given("I send a POST request to {string} with body:", (route: string, body: string) => {
   _request = request(application.httpServer).post(route).send(JSON.parse(body));
+});
+
+Given("I send a GET request to {string}", (route: string) => {
+  _request = request(application.httpServer).get(route).send();
 });
 
 Then('the response status code should be {int}', async (status: number) => {
@@ -31,6 +34,11 @@ Then('the response should be empty', () => {
 
 Then('the response body should have a token', () => {
   assert.notDeepStrictEqual(_response.body.token, null);
+});
+
+Then('the response body should have Weather primitives', () => {
+  assert.notDeepStrictEqual(_response.body.cloudCover, null);
+  assert.notDeepStrictEqual(_response.body.weather, null);
 });
 
 
