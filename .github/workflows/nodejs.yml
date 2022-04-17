@@ -21,6 +21,16 @@ jobs:
         ports:
           - 6379:6379
 
+      mongodb:
+        image: mongo
+        options: >-
+          --health-cmd mongo
+          --health-interval 10s
+          --health-timeout 5s
+          --health-queries 5
+        ports:
+          - 27017:27017
+
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js ${{ matrix.node-version }}

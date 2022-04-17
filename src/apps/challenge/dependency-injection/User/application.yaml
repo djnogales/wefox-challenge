@@ -1,0 +1,12 @@
+services:
+  Challenge.User.UserRepository:
+    class: ../../../../Contexts/Challenge/User/infrastructure/MongoUserRepository
+    arguments: ["@Shared.MongoConfig"]
+
+  Challenge.User.UserLogin:
+    class: ../../../../Contexts/Challenge/User/application/UserLogin
+    arguments: ["@Challenge.User.UserRepository"]
+
+  Challenge.User.UserRegister:
+    class: ../../../../Contexts/Challenge/User/application/UserRegister
+    arguments: ["@Challenge.User.UserRepository"]

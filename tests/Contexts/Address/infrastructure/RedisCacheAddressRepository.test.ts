@@ -3,7 +3,7 @@ import { AddressRepository } from "../../../../src/Contexts/Challenge/Address/do
 import { EnvironmentArranger } from "../../Shared/infrastructure/arranger/EnvironmentArranger";
 
 const repository: AddressRepository = container.get('Challenge.Address.AddressRepository');
-const environmentArranger: Promise<EnvironmentArranger> = container.get('Challenge.EnvironmentArranger');
+const environmentArranger: Promise<EnvironmentArranger> = container.get('Challenge.RedisEnvironmentArranger');
 
 beforeEach(async() => {
   await (await environmentArranger).arrange();
