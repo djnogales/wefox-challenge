@@ -1,6 +1,4 @@
-import { response } from "express";
 import { WeatherFinder } from "../../../../src/Contexts/Challenge/Weather/application/WeatherFinder";
-import { WeatherRepository } from "../../../../src/Contexts/Challenge/Weather/domain/WeatherRepository";
 import { WeatherMother } from "../domain/WeatherMother";
 import { WeatherRepositoryMock } from "../__mocks__/WeatherRepositoryMock";
 
@@ -18,7 +16,7 @@ describe('Weather Finder', () => {
 
     repository.whenSearchThenReturn(weather);
 
-    const result = await repository.search(weather.latitude, weather.longitude);
+    const result = await finder.run(weather.latitude.value, weather.longitude.value);
 
     repository.assertLastSearchedUserIs(weather.latitude, weather.longitude);
     expect(result.toPrimitives()).toStrictEqual(weather.toPrimitives());

@@ -12,7 +12,7 @@ const challengeConfig = convict({
       doc: 'The Redis connection URL',
       format: String,
       env: 'REDIS_URL',
-      default: 'redis://default@localhost:6379'
+      default: 'redis://localhost:6379'
     }
   },
   mongo: {
