@@ -4,6 +4,16 @@ services:
       class: ../../../../Contexts/Challenge/Shared/infrastructure/RedisConfigFactory
       method: 'createConfig'
 
+  Shared.MongoConfig:
+    factory:
+      class: ../../../../Contexts/Challenge/Shared/infrastructure/MongoConfigFactory
+      method: 'createConfig'
+
+  Shared.AuthConfig:
+    factory:
+      class: ../../../../Contexts/Challenge/Shared/infrastructure/AuthConfigFactory
+      method: 'createConfig'
+
   Shared.Logger:
     class: ../../../../Contexts/Shared/infrastructure/WinstonLogger
     arguments: []

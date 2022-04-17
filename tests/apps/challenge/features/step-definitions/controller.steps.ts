@@ -9,6 +9,14 @@ let _request: request.Test;
 let _response: request.Response;
 let application: ChallengeApp;
 
+Given('an user with email {string} and password {string}', async (email: string, password) => {
+  await request(application.httpServer).post('/user').send({
+    email: email,
+    password: password
+  });
+});
+
+
 Given("I send a POST request to {string} with body:", (route: string, body: string) => {
   _request = request(application.httpServer).post(route).send(JSON.parse(body));
 });
@@ -21,16 +29,28 @@ Then('the response should be empty', () => {
   assert.deepEqual(_response.body, {});
 });
 
+Then('the response body should have a token', () => {
+  assert.notDeepStrictEqual(_response.body.token, null);
+});
+
+
 BeforeAll(async() => {
-  const environmentArranger: Promise<EnvironmentArranger> = container.get('Challenge.EnvironmentArranger');
-  await (await environmentArranger).arrange();
+  const redisEnvironmentArranger: Promise<EnvironmentArranger> = container.get('Challenge.RedisEnvironmentArranger');
+  const mongoEnvironmentArranger: Promise<EnvironmentArranger> = container.get('Challenge.MongoEnvironmentArranger');
+
+  await (await redisEnvironmentArranger).arrange();
+  await (await mongoEnvironmentArranger).arrange();
   application = new ChallengeApp();
   await application.start();
 });
 
 AfterAll(async() => {
-  const environmentArranger: Promise<EnvironmentArranger> = container.get('Challenge.EnvironmentArranger');
-  await (await environmentArranger).arrange();
-  await (await environmentArranger).close();
+  const redisEnvironmentArranger: Promise<EnvironmentArranger> = container.get('Challenge.RedisEnvironmentArranger');
+  const mongoEnvironmentArranger: Promise<EnvironmentArranger> = container.get('Challenge.MongoEnvironmentArranger');
+
+  await (await redisEnvironmentArranger).arrange();
+  await (await mongoEnvironmentArranger).arrange();
+  await (await redisEnvironmentArranger).close();
+  await (await mongoEnvironmentArranger).close();
   await application.stop();
 });

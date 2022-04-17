@@ -2,6 +2,10 @@ imports:
   - { resource: ./application.yaml }
 
 services:
-  Challenge.EnvironmentArranger:
+  Challenge.RedisEnvironmentArranger:
     class: ../../../../tests/Contexts/Shared/infrastructure/redis/RedisEnvironmentArranger
     arguments: ['@Shared.ConnectionManager']
+
+  Challenge.MongoEnvironmentArranger:
+    class: ../../../../tests/Contexts/Shared/infrastructure/mongo/MongoEnvironmentArranger
+    arguments: ['@Shared.MongoConfig']
