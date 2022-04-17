@@ -16,3 +16,7 @@ services:
     class: ../controllers/RegisterPostController
     arguments: ["@Challenge.User.UserRegister"]
 
+  Apps.challenge.controllers.CheckWeatherGetController:
+    class: ../controllers/CheckWeatherGetController
+    arguments: []
+
