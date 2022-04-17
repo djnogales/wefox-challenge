@@ -27,7 +27,7 @@ jobs:
           --health-cmd mongo
           --health-interval 10s
           --health-timeout 5s
-          --health-queries 5
+          --health-retries 5
         ports:
           - 27017:27017
 
