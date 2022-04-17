@@ -4,10 +4,13 @@ import request from "supertest";
 import { ChallengeApp } from "../../../../../src/apps/challenge/ChallengeApp";
 import container from "../../../../../src/apps/challenge/dependency-injection";
 import { EnvironmentArranger } from "../../../../Contexts/Shared/infrastructure/arranger/EnvironmentArranger";
+import jwt from 'jsonwebtoken';
+
 
 let _request: request.Test;
 let _response: request.Response;
 let application: ChallengeApp;
+let token: string;
 
 Given('an user with email {string} and password {string}', async (email: string, password) => {
   await request(application.httpServer).post('/user').send({
@@ -20,10 +23,15 @@ Given("I send a POST request to {string} with body:", (route: string, body: stri
   _request = request(application.httpServer).post(route).send(JSON.parse(body));
 });
 
+Given("I am authenticated", async() => {
+    const dataInToken = { email: 'example@example.com' };
+    token = await jwt.sign(dataInToken, 'challenge', { expiresIn: 96000 });
+})
+
 Given("I send a GET request to {string}", (route: string) => {
   _request = request(application.httpServer).get(route).set(
       "Authorization",
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJpYXQiOjE2NTAxOTM1NzAsImV4cCI6MTY1MDIyOTU3MH0.ofYzKZJwut2B9wt3CUVuknbQKX-JkJ8WYqkA4ejNEzM"
+      `Bearer ${token}`
     ).send();
 });
 
