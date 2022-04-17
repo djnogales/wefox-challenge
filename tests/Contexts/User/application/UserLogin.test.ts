@@ -2,14 +2,20 @@ import { UserLogin } from "../../../../src/Contexts/Challenge/User/application/U
 import { User } from "../../../../src/Contexts/Challenge/User/domain/User";
 import { UserRepositoryMock } from "../__mocks__/UserRepositoryMock";
 import bcrypt from 'bcrypt';
-
+import AuthConfig from "../../../../src/Contexts/Shared/infrastructure/AuthConfig";
+import jwt from 'jsonwebtoken';
 
 let repository: UserRepositoryMock;
 let login: UserLogin;
+let config: AuthConfig;
 
 beforeEach(() => {
   repository = new UserRepositoryMock();
-  login = new UserLogin(repository);
+  config = {
+    expiresIn: 36000,
+    secretKey: "challenge"
+  }
+  login = new UserLogin(repository, config);
 });
 
 describe('UserLogin', () => {
@@ -24,7 +30,8 @@ describe('UserLogin', () => {
 
     repository.assertLastSearchedUserIs(email);
 
-    expect(result.email).toBe(email);
+    const verification = jwt.verify(result, config.secretKey) as { email: string, exp: number, iat: number };
+    expect(verification.email).toBe(email);
   });
 });
 

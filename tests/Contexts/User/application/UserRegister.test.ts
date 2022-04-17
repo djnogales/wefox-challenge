@@ -1,6 +1,5 @@
 import { UserRegister } from "../../../../src/Contexts/Challenge/User/application/UserRegister"
 import { User } from "../../../../src/Contexts/Challenge/User/domain/User";
-import { UserAlreadyExists } from "../../../../src/Contexts/Challenge/User/domain/UserAlreadyExists";
 import { UserRepositoryMock } from "../__mocks__/UserRepositoryMock"
 
 let repository: UserRepositoryMock;

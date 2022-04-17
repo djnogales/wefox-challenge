@@ -5,3 +5,4 @@ logs/
 data
 test-results.xml
 coverage/
+*.rdb

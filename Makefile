@@ -24,7 +24,7 @@ build:
 	docker build -t $(IMAGE_NAME):dev .
 
 test: build
-	docker-compose run --rm $(SERVICE_NAME) bash -c 'npm run build && npm run test'
+	docker-compose run --rm $(SERVICE_NAME) bash -c 'npm run test'
 
 challenge: build
 	docker-compose up $(CHALLENGE_APP_NAME) && docker-compose down
@@ -33,4 +33,4 @@ clean:
 	docker-compose down --rmi local --volumes --remove-orphans
 
 start_database:
-	docker-compose up -d mongo
+	docker-compose up -d mongo redis

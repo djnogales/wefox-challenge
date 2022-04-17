@@ -3,19 +3,21 @@ import { InvalidUserCredentials } from "../domain/InvalidUserCredentials";
 import { User } from "../domain/User";
 import { UserRepository } from "../domain/UserRepository";
 import  bcrypt from "bcrypt";
+import AuthConfig from "../../../Shared/infrastructure/AuthConfig";
+import jwt from 'jsonwebtoken';
 
 export class UserLogin {
   private repository: UserRepository;
 
-  constructor(repository: UserRepository) {
+  constructor(repository: UserRepository, private config: AuthConfig) {
     this.repository = repository;
   }
 
-  async run(email: string, password: string): Promise<User> {
+  async run(email: string, password: string): Promise<string> {
     const user = await this.repository.search(email);
     this.ensureUserExists(user, email);
     this.ensureCredentialsAreValid(user as User, password);
-    return user as User;
+    return this.createToken(user as User);
   }
 
   private ensureUserExists(user: Nullable<User>, email: string) {
@@ -29,5 +31,10 @@ export class UserLogin {
     if (!passwordMatches) {
       throw new InvalidUserCredentials(user.email);
     }
+  }
+
+  private createToken(user: User) {
+    const dataInToken = { email: user.email };
+    return jwt.sign(dataInToken, this.config.secretKey, { expiresIn: this.config.expiresIn });
   }
 }

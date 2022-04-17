@@ -1,5 +1,4 @@
 import { AddressValidator } from "../../../../src/Contexts/Challenge/Address/application/AddressValidator";
-import { Address } from "../../../../src/Contexts/Challenge/Address/domain/Address";
 import { AddressRepository } from "../../../../src/Contexts/Challenge/Address/domain/AddressRepository";
 
 
