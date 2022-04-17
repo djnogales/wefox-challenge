@@ -11,7 +11,7 @@ services:
 
   Apps.challenge.controllers.LoginPostController:
     class: ../controllers/LoginPostController
-    arguments: ["@Challenge.User.UserLogin", "@Shared.AuthConfig"]
+    arguments: ["@Challenge.User.UserLogin"]
 
   Apps.challenge.controllers.RegisterPostController:
     class: ../controllers/RegisterPostController
@@ -20,4 +20,8 @@ services:
   Apps.challenge.controllers.CheckWeatherGetController:
     class: ../controllers/CheckWeatherGetController
     arguments: ["@Challenge.Weather.WeatherFinder"]
+
+  Apps.challenge.middlewares.AuthMiddleware:
+    class: ../middlewares/AuthMiddleware
+    arguments: ["@Shared.AuthConfig"]
 

@@ -21,7 +21,10 @@ Given("I send a POST request to {string} with body:", (route: string, body: stri
 });
 
 Given("I send a GET request to {string}", (route: string) => {
-  _request = request(application.httpServer).get(route).send();
+  _request = request(application.httpServer).get(route).set(
+      "Authorization",
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJpYXQiOjE2NTAxOTM1NzAsImV4cCI6MTY1MDIyOTU3MH0.ofYzKZJwut2B9wt3CUVuknbQKX-JkJ8WYqkA4ejNEzM"
+    ).send();
 });
 
 Then('the response status code should be {int}', async (status: number) => {

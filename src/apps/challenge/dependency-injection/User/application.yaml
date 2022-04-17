@@ -5,7 +5,7 @@ services:
 
   Challenge.User.UserLogin:
     class: ../../../../Contexts/Challenge/User/application/UserLogin
-    arguments: ["@Challenge.User.UserRepository"]
+    arguments: ["@Challenge.User.UserRepository", "@Shared.AuthConfig"]
 
   Challenge.User.UserRegister:
     class: ../../../../Contexts/Challenge/User/application/UserRegister
