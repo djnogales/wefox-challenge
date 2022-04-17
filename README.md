@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://www.wefox.com/en-de">
-    <img src="https://s3.eu-west-1.amazonaws.com/www.jobfluent.com/company_logos/1/5/5/1553_224_224_original.png" width="150px" height="150px"/>
+    <img src="https://www.jobaidukraine.com/wp-content/uploads/job-manager-uploads/company_logo/2022/03/logo-37.jpg" width="150px" height="150px"/>
   </a>
 </p>
 
