@@ -1,0 +1,12 @@
+services:
+  Challenge.Weather.WeatherRepository:
+    class: ../../../../Contexts/Challenge/Weather/infrastructure/SevenTimerWeatherRepository
+    arguments: []
+
+  Challenge.Weather.CacheWeatherRepository:
+    class: ../../../../Contexts/Challenge/Weather/infrastructure/RedisCacheWeatherRepository
+    arguments: ["@Challenge.Weather.WeatherRepository", "@Shared.ConnectionManager"]
+
+  Challenge.Weather.WeatherFinder:
+    class: ../../../../Contexts/Challenge/Weather/application/WeatherFinder
+    arguments: ["@Challenge.Weather.CacheWeatherRepository"]
