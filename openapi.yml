@@ -1,0 +1,169 @@
+openapi: 3.0.0
+
+info:
+  title: Wefox Challenge API
+  description: Challenge API for Wefox
+  version: "1.0"
+tags:
+  - name: Address
+  - name: User
+  - name: Weather
+
+paths:
+
+  /user:
+    post:
+      summary: Create an user
+      description: "Calling this endpoint, with the appropiated fields,
+                    the system will reigster a record of an user"
+      operationId: saveUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      tags:
+      - User
+      responses:
+        201:
+          description: User registered
+        400:
+          description: User already exists
+        500:
+          description: Error
+
+
+  /user/auth:
+    post:
+      summary: Login
+      description: "Calling this endpoint, with the necessary fields,
+                    the user is able to login"
+      operationId: login
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        401:
+          description: "Unauthorized"
+        500:
+          description: "Error"
+  
+  /address/validate:
+    post:
+      summary: Validate an address
+      description: "This endpoint validates a given address"
+      operationId: validateAddress
+      tags:
+        - Address
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Address'
+      responses:
+        200:
+          description: OK
+
+        500:
+          description: Error
+          
+  /weather:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Check the weather given a pair of coordinates
+      description: "Check the weather given a pair of coordinates"
+      operationId: checkWeather
+      tags:
+        - Weather
+      parameters:
+        - in: query
+          name: latitude
+          schema:
+            type: string
+          description: Latitude
+        - in: query
+          name: longitude
+          schema:
+            type: string
+          description: Longitude
+          
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Weather'
+        401:
+          description: Unauthorized
+        500:
+          description: Error
+          
+
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      
+  schemas:
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+          
+    Token:
+      type: object
+      properties:
+        token:
+          type: string
+          
+    Address:
+      type: object
+      properties:
+        street:
+          type: string
+        streetNumber:
+          type: string
+        town:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+      
+    Weather:
+      type: object
+      properties:
+        latitude: 
+          type: string
+        longitude:
+          type: string
+        cloudCover:
+          type: number
+        weather:
+          type: string
+  
+  
+          
+
+
+      
+      
+      

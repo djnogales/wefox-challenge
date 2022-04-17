@@ -20,7 +20,7 @@ services:
 
   challenge:
     <<: *default-app
-    command: bash -c "npm run build && npm run start:challenge"
+    command: bash -c "npm run dev:challenge"
     ports:
       - 3000:3000
 
