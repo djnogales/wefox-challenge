@@ -1,0 +1,25 @@
+services:
+  Shared.RedisConfig:
+    factory:
+      class: ../../../../Contexts/Challenge/Shared/infrastructure/RedisConfigFactory
+      method: 'createConfig'
+
+  Shared.MongoConfig:
+    factory:
+      class: ../../../../Contexts/Challenge/Shared/infrastructure/MongoConfigFactory
+      method: 'createConfig'
+
+  Shared.AuthConfig:
+    factory:
+      class: ../../../../Contexts/Challenge/Shared/infrastructure/AuthConfigFactory
+      method: 'createConfig'
+
+  Shared.Logger:
+    class: ../../../../Contexts/Shared/infrastructure/WinstonLogger
+    arguments: []
+
+  Shared.ConnectionManager:
+    factory:
+      class: ../../../../Contexts/Shared/infrastructure/RedisClientFactory
+      method: 'createClient'
+    arguments: ['challenge', '@Shared.RedisConfig']

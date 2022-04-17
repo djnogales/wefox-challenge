@@ -1,0 +1,42 @@
+version: '3.8'
+
+x-app-service: &default-app
+  build: .
+  command: ''
+  environment:
+    - MONGO_URL=mongodb://mongo:27017/dev
+    - REDIS_URL=redis://redis:6379
+  depends_on:
+    - mongo
+    - redis
+
+  volumes:
+    - .:/code:delegated
+    - node_modules:/code/node_modules:delegated
+
+services:
+  app:
+    <<: *default-app
+
+  challenge:
+    <<: *default-app
+    command: bash -c "npm run dev:challenge"
+    ports:
+      - 3000:3000
+
+  mongo:
+    image: mongo
+
+    ports:
+      - 27017:27017
+
+  redis:
+    image: redis
+
+    ports:
+      - 6379:6379
+
+volumes:
+  node_modules:
+  esdata:
+    driver: local

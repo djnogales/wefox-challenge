@@ -1,0 +1,12 @@
+services:
+  Challenge.Address.AddressRepository:
+      class: ../../../../Contexts/Challenge/Address/infrastructure/NominatimAddressRepository
+      arguments: []
+
+  Challenge.Address.CacheAddressRepository:
+    class: ../../../../Contexts/Challenge/Address/infrastructure/RedisCacheAddressRepository
+    arguments: ["@Challenge.Address.AddressRepository", "@Shared.ConnectionManager"]
+
+  Challenge.Address.AddressValidator:
+    class: ../../../../Contexts/Challenge/Address/application/AddressValidator
+    arguments: ["@Challenge.Address.CacheAddressRepository"]
