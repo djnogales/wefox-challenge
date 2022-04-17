@@ -3,7 +3,7 @@ Feature: Validate address
     I want to validate if an address is real
 
     Scenario: A valid address
-    Given I send a POST request to "/validate-address" with body:
+    Given I send a POST request to "/address/validate" with body:
     """
     {
         "street": "Calle Preciados",
@@ -17,7 +17,7 @@ Feature: Validate address
     And the response should be empty
 
     Scenario: An invalid address
-    Given I send a POST request to "/validate-address" with body:
+    Given I send a POST request to "/address/validate" with body:
     """
     {
         "street": "Fake Street",
